@@ -1,0 +1,12 @@
+.detailsBookContent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.detailsBookContentItem {
+    flex: 1;
+}

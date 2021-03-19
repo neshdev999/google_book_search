@@ -1,0 +1,28 @@
+.titleContent {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 38px;
+    color: white;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+}
+
+.titleContainer {
+    background-color: #000000;
+    margin: 0px;
+    padding: 2%;
+}
+
+
+/* Desktop Screen */
+
+@media screen and (min-width: 992px) {
+    .titleContent {
+        font-size: 40px;
+        margin: 0px;
+        padding: 0px;
+    }
+    .titleContainer {
+        padding: 3%;
+    }
+}

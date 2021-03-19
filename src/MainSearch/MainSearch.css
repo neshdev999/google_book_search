@@ -1,0 +1,21 @@
+.mainSearchContainer {
+    background-color: #a3a3a3;
+    padding: 10px;
+}
+
+.searchForm {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 18px;
+}
+
+
+/* Desktop Screen */
+
+@media screen and (min-width: 992px) {
+    .mainSearchContainer {
+        padding: 15px;
+    }
+    .searchForm {
+        font-size: 20px;
+    }
+}
