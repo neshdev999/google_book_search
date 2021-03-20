@@ -20,7 +20,7 @@ class App extends Component {
       currentBooks: [],
       searchTerm: 'flowers',
       printType: 'all',
-      bookType: 'ebooks'
+      bookType: null
     }
   }
 
@@ -28,7 +28,13 @@ class App extends Component {
     let queryTerm = this.state.searchTerm;
     let printTypeTerm = this.state.printType;
     let bookTypeTerm = this.state.bookType;
-    const url = 'https://www.googleapis.com/books/v1/volumes?q=' + queryTerm + '&filter='+ bookTypeTerm + '&printType='+ printTypeTerm + '&key=AIzaSyAOy8yTeY5w1IYGorjb2J51v5W2VPy_AjA';
+    let url;
+    if(bookTypeTerm === null){
+       url = 'https://www.googleapis.com/books/v1/volumes?q=' + queryTerm + '&printType='+ printTypeTerm + '&key=AIzaSyAOy8yTeY5w1IYGorjb2J51v5W2VPy_AjA';
+    }else{
+       url = 'https://www.googleapis.com/books/v1/volumes?q=' + queryTerm + '&filter='+ bookTypeTerm + '&printType='+ printTypeTerm + '&key=AIzaSyAOy8yTeY5w1IYGorjb2J51v5W2VPy_AjA';
+    }
+    // const url = 'https://www.googleapis.com/books/v1/volumes?q=' + queryTerm + '&filter='+ bookTypeTerm + '&printType='+ printTypeTerm + '&key=AIzaSyAOy8yTeY5w1IYGorjb2J51v5W2VPy_AjA';
     console.log('fetching data...');
     fetch(url)
     .then(res => {
@@ -40,11 +46,17 @@ class App extends Component {
     .then(res => res.json())
     .then(data => {
       console.log(data);
-      console.log(data.items);
-      this.setState({
-        currentBooks: data.items,
-        error: null
-      });
+      // if(data.totalItems === 0){
+      //   this.setState({
+      //     error: null
+      //   });
+      // }else{
+        console.log(data.items);
+        this.setState({
+          currentBooks: data.items,
+          error: null
+        });
+      // }
     })
     .catch(err => {
       this.setState({
@@ -61,22 +73,52 @@ class App extends Component {
   //   this.fetchGoogleData();
   // }
 
-  updateSearchData(term){
+  updateSearchData(term, bfilter, pfilter){
     const newTerm = term;
+    const bfilterTerm = bfilter;
+    const pfilterTerm = pfilter;
     // this.setState({
     //   searchTerm: newTerm
     // });
     this.setState({
-      searchTerm: newTerm},
-      () =>this.fetchGoogleData(this.state.searchTerm) );
+      searchTerm: newTerm,
+      bookType: bfilterTerm,
+      printType: pfilterTerm
+    },
+      () =>this.fetchGoogleData() );
   }
 
+  // updateFilterData(bfilter, pfilter){
+  //   const bfilterTerm = bfilter;
+  //   const pfilterTerm = pfilter;
+
+  //   this.setState({
+  //     bookType: bfilterTerm,
+  //     printType: pfilterTerm
+  //   }, )
+  // }
+
   render(){
+    let displayContent;
+    if(this.state.currentBooks === undefined){
+      displayContent = <div> No such book is available. </div>;
+    }else{
+      displayContent =   <Content books={this.state.currentBooks}  />;
+    }
+
+
     return (
       <div className='App'>
         <Title />
-        <SearchBox  passGoogleDataUpdate = {() => this.fetchGoogleData()} updateTerm = {term => this.updateSearchData(term)} />
-        <Content books={this.state.currentBooks}  />      
+        <SearchBox  passGoogleDataUpdate = {() => this.fetchGoogleData()} updateTerm = {(term, bfilter, pfilter) => this.updateSearchData(term, bfilter,pfilter)} currentTerm = {this.state.searchTerm} currentBFilter = {this.state.bookType} currentPFilter = {this.state.printType}/>
+        {/* if(currentContent === undefined){
+          <div>No content avail</div>
+        }else{
+          <Content books={this.state.currentBooks}  />  
+        } */}
+
+        {displayContent}
+    
       </div>
     );
   }

@@ -9,8 +9,8 @@ class Filters extends Component{
     render(){
         return(
             <div className="filtersContainer">
-                <PrintType />
-                <BookType />
+                <PrintType updateTerm = {this.props.updateTerm} currentTerm = {this.props.currentTerm} currentBFilter = {this.props.currentBFilter} currentPFilter={this.props.currentPFilter}/>
+                <BookType updateTerm = {this.props.updateTerm} currentTerm = {this.props.currentTerm} currentBFilter = {this.props.currentBFilter} currentPFilter={this.props.currentPFilter}/>
             </div>
         );
     }
