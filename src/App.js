@@ -29,7 +29,7 @@ class App extends Component {
     let printTypeTerm = this.state.printType;
     let bookTypeTerm = this.state.bookType;
     const url = 'https://www.googleapis.com/books/v1/volumes?q=' + queryTerm + '&filter='+ bookTypeTerm + '&printType='+ printTypeTerm + '&key=AIzaSyAOy8yTeY5w1IYGorjb2J51v5W2VPy_AjA';
-
+    console.log('fetching data...');
     fetch(url)
     .then(res => {
       if(!res.ok){
@@ -63,9 +63,12 @@ class App extends Component {
 
   updateSearchData(term){
     const newTerm = term;
+    // this.setState({
+    //   searchTerm: newTerm
+    // });
     this.setState({
-      searchTerm: newTerm
-    });
+      searchTerm: newTerm},
+      () =>this.fetchGoogleData(this.state.searchTerm) );
   }
 
   render(){

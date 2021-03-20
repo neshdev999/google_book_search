@@ -17,9 +17,10 @@ class MainSearch extends Component{
 
     handleSubmit(e){
         e.preventDefault();
+        console.log(this.state.term);
         this.props.updateTerm(this.state.term);
-        this.props.passGoogleDataUpdate();
-   
+       // this.props.passGoogleDataUpdate();
+        console.log('button clicked');
     }
 
     render(){
