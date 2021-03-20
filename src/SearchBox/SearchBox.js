@@ -9,7 +9,7 @@ class SearchBox extends Component{
     render(){
         return(
             <div className="searchBoxContainer">
-                <MainSearch />
+                <MainSearch passGoogleDataUpdate= {this.props.passGoogleDataUpdate} updateTerm = {this.props.updateTerm}/>
                 <Filters />
             </div>       
         );

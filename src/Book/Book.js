@@ -8,27 +8,29 @@ import BookPrice from '../BookPrice/BookPrice';
 import BookDescription from '../BookDescription/BookDescription';
 
 class Book extends Component{
+
     render(){
+        const currentBookPriceTag = this.props.saleInfo.saleability === "FOR_SALE" ? ("$" + this.props.saleInfo.listPrice.amount) : this.props.saleInfo.saleability;
         return(
             <div className="bookContainer">
                 <div className="bookTitleContainer">
-                    <BookTitle bookTitle={this.props.bookTitle}/>
+                    <BookTitle bookTitle={this.props.volumeInfo.title}/>
                 </div>
                 <div className="detailsBookContent">
                     <div className="detailsBookContentItem">
-                        <BookImage bookImage={this.props.bookImage} />
+                        <BookImage bookImage={this.props.volumeInfo.imageLinks.thumbnail} />
                     </div>
                     <div className="detailsBookContentItem">
                         <div className="detailsBookAuthor">
-                            <BookAuthor bookAuthor={this.props.author} />
+                            <BookAuthor bookAuthor={this.props.volumeInfo.authors} />
                         </div>
                         <div className="detailsBookPrice">
-                            <BookPrice bookPrice={this.props.price} />
+                            <BookPrice bookPrice={currentBookPriceTag} />
                         </div>
                         <br />
                         <br />
                         <div className="detailsBookDescription">
-                            <BookDescription bookDescription={this.props.description} />
+                            <BookDescription bookDescription={this.props.volumeInfo.description} />
                         </div>
                     </div>                 
                 </div>
